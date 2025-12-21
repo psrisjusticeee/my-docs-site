@@ -1,0 +1,621 @@
+/* HOMEPAGE ONLY — robust */
+body[data-md-url="/"] .md-content__inner,
+body[data-md-url=""] .md-content__inner,
+body[data-md-url="."] .md-content__inner,
+body[data-md-url="index/"] .md-content__inner,
+[data-md-page="index.md"] .md-content__inner{
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+body[data-md-url="/"] .md-content__inner::after,
+body[data-md-url=""] .md-content__inner::after,
+body[data-md-url="."] .md-content__inner::after,
+body[data-md-url="index/"] .md-content__inner::after,
+[data-md-page="index.md"] .md-content__inner::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("assets/bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  z-index: 0;
+}
+
+body[data-md-url="/"] .md-content__inner::before,
+body[data-md-url=""] .md-content__inner::before,
+body[data-md-url="."] .md-content__inner::before,
+body[data-md-url="index/"] .md-content__inner::before,
+[data-md-page="index.md"] .md-content__inner::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,.7);
+  z-index: 1;
+}
+
+body[data-md-url="/"] .md-typeset,
+body[data-md-url=""] .md-typeset,
+body[data-md-url="."] .md-typeset,
+body[data-md-url="index/"] .md-typeset,
+[data-md-page="index.md"] .md-typeset{
+  position: relative;
+  z-index: 2;
+}
+
+
+/* Scales the whole site because Material uses rem units */
+/* html { font-size: 20px; }   /* try 17–19px and adjust to taste */
+/* Content size */
+.md-typeset { font-size: 1.16rem; line-height: 1.9; }
+
+/* UI (sidebar, header, footer) size */
+.md-header, .md-nav, .md-footer { font-size: 1.06rem; }
+
+/* 全站基础字号（Material 用 rem）： */
+/*html { font-size: 18px; }           /* 调整全站字号 */
+
+/* 正文排版（只影响内容区） */
+:root {
+  --md-typeset-font-size: 0.96rem;  /* 正文字号 */
+  --md-typeset-line-height: 0.96rem;    /* 行距 */
+}
+
+/* 中文小说常用：首行缩进 */
+.md-typeset p { text-indent: 2em; }
+.md-typeset p:has(> img), .md-typeset blockquote p { text-indent: 0; } /* 例外 */
+
+.center { text-align: center; }
+.right  { text-align: right; }
+.small  { font-size: 0.9em; }
+
+.cap2em{
+  display: inline-block;
+  font-size: 2em;
+  line-height: 1;
+  vertical-align: -0.15em;   /* nudge down so bottoms align; adjust -0.10~-.20em */
+  margin-right: .05em;
+}
+
+/* apply to content area (or :root for site-wide) */
+.md-typeset { font-synthesis: weight style; }     /* 允许合成字重和斜体 */
+
+.bold900 { font-weight: 900; }
+
+/* 仅打印时分页（导出 PDF 时像 Docx 的“分页符”） */
+@media print {
+  .page-break { page-break-before: always; }
+}
+
+/* 选一个你喜欢的章节符号，留空格更好看 */
+:root{
+  --chapter-mark: "§";     /* 也可以换成 "❖ " / "※ " / "✶ " / "❧ " 等 */
+}
+
+/* 给正文区域的“第一个 H1”自动加前缀符号 */
+.md-typeset > h1:first-of-type::before{
+  content: var(--chapter-mark);
+  /* 可微调字号/间距（按需取消注释） */
+  /* font-size: 1em; */
+  /* margin-right: .05em; */
+}
+
+/* —— 可选：只给“小节页”加，不给首页/目录页加 —— */
+/* 在不想加符号的页面开头放一个占位元素（见下文），这里让它生效 */
+.md-typeset .no-chapter + h1:first-of-type::before{
+  content: none;
+}
+
+/* In your page <style> where #network lives */
+/*#network { height: 600px; }            /* try 560–680px */
+/*@media (max-width: 60rem){ #network { height: 520px; } }
+
+/* === 1) Register your fonts (add woff2 if you converted) === */
+@font-face {
+  font-family: "AaGuDianKeBenSong";
+  src: url("assets/fonts/AaGuDianKeBenSong.woff2") format("woff2"),
+       url("assets/fonts/AaGuDianKeBenSong.ttf") format("truetype");
+  font-weight: 400; font-style: normal; font-display: swap;
+} 
+@font-face {
+  font-family: "AaLanSong";
+  src: url("assets/fonts/AaLanSong.woff2") format("woff2"),
+       url("assets/fonts/AaLanSong.ttf") format("truetype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+/*@font-face {
+  font-family: "HanYiBaoSongJian";
+  src: url("assets/fonts/HanYiBaoSongJian.woff2") format("woff2"),
+       url("assets/fonts/HanYiBaoSongJian.ttf") format("truetype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "HanYiShuSongYiFan";
+  src: url("assets/fonts/HanYiShuSongYiFan.woff2") format("woff2"),
+       url("assets/fonts/HanYiShuSongYiFan.ttf") format("truetype");
+  font-weight: 400; font-style: normal; font-display: swap;
+} */
+@font-face {
+  font-family: "FZSongYi";
+  src: url("assets/fonts/FZSongYi.woff2") format("woff2"),
+       url("assets/fonts/FZSongYi.ttf") format("truetype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "WenYueGuTiFangSong";
+  src: url("assets/fonts/WenYue-GuTiFangSong-JRFC-2.woff2") format("woff2"),
+       url("assets/fonts/WenYue-GuTiFangSong-JRFC-2.otf") format("truetype");
+  font-weight: 400; font-style: normal; font-display: swap;
+} 
+/*@font-face {
+  font-family: "HuaGuangGuYunSong";
+  src: url("assets/fonts/HuaGuangGuYunSong.woff2") format("woff2"),
+       url("assets/fonts/HuaGuangGuYunSong.ttf") format("truetype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "LingDongQiCheChunTang";
+  src: url("assets/fonts/LingDongQiCheChunTang.woff2") format("woff2"),
+       url("assets/fonts/LingDongQiCheChunTang.ttf") format("truetype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "QingNiaoHuaGuangJianBaoSongYi";
+  src: url("assets/fonts/QingNiaoHuaGuangJianBaoSongYi.woff2") format("woff2"),
+       url("assets/fonts/QingNiaoHuaGuangJianBaoSongYi.ttf") format("truetype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "TTShuSongJ";
+  src: url("assets/fonts/TTShuSongJ.woff2") format("woff2"),
+       url("assets/fonts/TTShuSongJ.ttf") format("truetype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "WenYueXHGuYaSongJRFC";
+  src: url("assets/fonts/WenYue-XHGuYaSong-JRFC.woff2") format("woff2"),
+       url("assets/fonts/WenYue-XHGuYaSong-JRFC.otf") format("opentype");
+  font-weight: 400; font-style: normal; font-display: swap;
+} */
+
+/* === 2) Default font stacks (can be changed by font-picker.js) === */
+/*:root{
+  --body-font: "WenYueXHGuYaSongJRFC", "Noto Serif SC", "Source Han Serif SC",
+               "Songti SC", "STSong", serif;
+  --ui-font:   "Noto Sans SC", "Source Han Sans SC",
+               "PingFang SC", "Microsoft YaHei", sans-serif;
+/*}
+
+/* --- choose stacks --- */
+:root{
+  --title-font: "Times New Roman", "WenYueGuTiFangSong", "Noto Serif SC", "Source Han Serif SC", serif;
+  --body-font:  "Times New Roman", "FZSongYi", "Noto Serif SC", "Source Han Serif SC", serif;
+  --ui-font: "Times New Roman", "AaGuDianKeBenSong", "Noto Serif SC", "Source Han Serif SC", serif;
+}
+
+/* --- apply to content (正文) --- */
+.md-typeset{ 
+  font-family: var(--body-font);
+  font-weight: 600;      /* allow synthetic bold if 700 is missing */
+}
+
+/* headings inside articles */
+.md-typeset h1{
+  font-family: var(--title-font);
+  font-weight: 550;
+}
+.md-typeset h2, .md-typeset h3,
+.md-typeset h4, .md-typeset h5, .md-typeset h6{
+  font-family: var(--ui-font);
+/*  font-weight: 700;            /* if your font has no bold, it will synthesize */
+}
+
+/* --- apply to site chrome titles (optional, if you also want titles in UI) --- */
+/* Site title in the top bar */
+.md-header__title{ font-family: var(--title-font); }
+
+/* Section titles / links in the left nav (if you want them in the title font too) */
+.md-nav__title,
+.md-nav__link{
+  font-family: var(--ui-font);
+}
+
+/* Apply to content and UI */
+/*.md-typeset{ font-family: var(--body-font); font-size: 1.06rem; line-height: 1.9;
+  letter-spacing: .01em; word-break: break-word; line-break: loose; }
+/*.md-nav, .md-header, .md-footer, .md-search{ font-family: var(--ui-font); }
+
+/* 正文容器填满剩余空间，文字内容居中 */
+@media (min-width: 60rem) {
+  /* 让内容区域填满 */
+  article.md-content__inner.md-typeset {
+    max-width: none !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    /* 使用 padding 让内容居中 */
+    padding-left: calc((100% - 90ch) / 2) !important;
+    padding-right: calc((100% - 90ch) / 2) !important;
+  }
+}
+
+/* 隐藏右侧空白的 TOC 侧边栏（因为已启用 toc.integrate） */
+@media (min-width: 60rem) {
+  .md-sidebar--secondary { display: none; }
+}
+
+/* ==== 自行调这两个值即可 ==== */
+:root{
+  --nav-w: 20rem;      /* 目录栏宽度：按你的最长标题调大些，例如 20–24rem */
+  --nav-pad-x: .25rem; /* 目录内部左右内边距，越小越贴边 */
+}
+
+/* 桌面端：取消页面居中留白，让布局从最左开始 */
+@media (min-width: 60rem){
+  .md-grid{ max-width: none; }          /* 取消居中容器的最大宽度限制 */
+  .md-main__inner{ margin: 0; }         /* 主区域也从最左开始 */
+  .md-header__inner{ padding-left: 0; } /* 顶部横条与左侧对齐 */
+
+  /* 让主目录侧栏真正变宽（所有嵌套容器都要同步设置） */
+  .md-sidebar--primary,
+  .md-sidebar--primary .md-sidebar__scrollwrap,
+  .md-sidebar--primary .md-sidebar__inner{
+    width: var(--nav-w) !important;
+  }
+
+  /* 去掉目录内部默认留白，让滚动条紧贴右侧 */
+  .md-sidebar--primary .md-sidebar__inner{ padding: 0; }
+  .md-sidebar--primary .md-sidebar__scrollwrap{ padding: 0; }
+  .md-nav{ padding: 0 var(--nav-pad-x); }  /* 仅保留极小水平内边距 */
+}
+
+/* 目录文字：允许多行换行显示 */
+.md-nav__link{ overflow: visible; }  /* 主题默认是 hidden，会触发省略号 */
+.md-nav--primary .md-ellipsis,
+.md-nav--secondary .md-ellipsis{
+  max-width: none;
+  white-space: normal;   /* 允许换行 */
+  overflow: visible;     /* 不裁切 */
+  text-overflow: initial;/* 不显示 … */
+  word-break: break-word;
+}
+
+/* 进一步给文字“腾地”：缩小层级缩进与图标间距 */
+.md-nav__icon{ margin-inline-end: .25rem; }
+.md-nav--primary .md-nav__item--nested > .md-nav__link{
+  padding-inline-start: .15rem;
+}
+
+:root{ --content-gap: 5.5rem; }   /* 想要更宽就调大，比如 1.25rem / 1.5rem */
+
+@media (min-width: 60rem){
+  /* Material 主体用 CSS Grid 布局，这里直接加列间距 */
+  .md-main__inner{
+    column-gap: var(--content-gap); /* 等价于 grid-column-gap */
+    /* 兼容旧浏览器可再写一行：gap: 0 var(--content-gap); */
+  }
+}
+
+
+/* ===== Wikipedia-like page styling (scoped to .wiki) ===== */
+.wiki{
+  --wp-border:#a2a9b1; --wp-bg:#f8f9fa; --wp-text:#202122; --wp-muted:#54595d;
+  color:var(--wp-text);
+  font-size:1.05rem;
+  line-height:1.7;
+}
+
+/* Section headings with a subtle bottom rule; also clear previous floats */
+.wiki h2, .wiki h3{
+  border-bottom:1px solid var(--wp-border);
+  padding-bottom:.25rem; margin-top:1.5rem;
+  clear: both;
+}
+
+/* Tables within wiki pages: align with body text styling */
+.wiki .md-typeset__table,
+.wiki table{
+  width:100%;
+  max-width:100%;
+  margin:1.1rem 0;
+}
+.md-typeset .wiki .md-typeset__table{
+  display:block;
+}
+.md-typeset .wiki table{
+  width:100% !important;
+  min-width:100%;
+  table-layout:fixed;
+  font-size:inherit !important;
+  border-collapse:collapse;
+  border:2px solid var(--wp-border);
+}
+.md-typeset .wiki table th,
+.md-typeset .wiki table td{
+  font-size:inherit;
+  font-weight:inherit;
+  padding:.55rem .75rem;
+  word-break:break-word;
+  border:2px solid var(--wp-border);
+  text-align:center;
+  vertical-align:middle;
+}
+
+/* ratings-table 的单元格覆盖通用样式 */
+.md-typeset .wiki table.ratings-table td {
+  text-align: left;
+}
+/* 通用表格列宽（不适用于 ratings-table） */
+.md-typeset .wiki table:not(.ratings-table) th:nth-child(1),
+.md-typeset .wiki table:not(.ratings-table) td:nth-child(1){
+  width:10%;
+}
+.md-typeset .wiki table:not(.ratings-table) th:nth-child(2),
+.md-typeset .wiki table:not(.ratings-table) td:nth-child(2){
+  width:77%;
+}
+.md-typeset .wiki table:not(.ratings-table) th:nth-child(3),
+.md-typeset .wiki table:not(.ratings-table) td:nth-child(3){
+  width:13%;
+}
+.md-typeset .wiki table thead th{
+  background:#E7EAF6;
+}
+
+.md-typeset .wiki table.ratings-table{
+  table-layout:fixed;
+  width: 100%;
+}
+.md-typeset .wiki table.ratings-table th:nth-child(1),
+.md-typeset .wiki table.ratings-table td:nth-child(1){
+  width:10% !important;
+}
+.md-typeset .wiki table.ratings-table th:nth-child(2),
+.md-typeset .wiki table.ratings-table td:nth-child(2){
+  width:22% !important;
+}
+.md-typeset .wiki table.ratings-table th:nth-child(3),
+.md-typeset .wiki table.ratings-table td:nth-child(3){
+  width:55% !important;
+}
+.md-typeset .wiki table.ratings-table th:nth-child(4),
+.md-typeset .wiki table.ratings-table td:nth-child(4){
+  width:13% !important;
+}
+
+/* 限制第三列（内容列）的显示行数 */
+.md-typeset .wiki table.ratings-table td:nth-child(3){
+  width: 50% !important;
+  text-align: left !important;
+  vertical-align: top !important;
+  padding: .55rem .75rem !important;
+  position: relative;
+}
+
+/* 单元格内容包装器 */
+.md-typeset .wiki table.ratings-table td:nth-child(3) .cell-content-wrapper {
+  width: 100%;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+/* 折叠状态的包装器 */
+.md-typeset .wiki table.ratings-table td:nth-child(3) .cell-content-wrapper.collapsed-content {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 4.5em;  /* 根据行数和行高调整，约3行 */
+  line-height: 1.5em;
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
+}
+
+/* 展开状态的包装器 */
+.md-typeset .wiki table.ratings-table td:nth-child(3) .cell-content-wrapper.expanded-content {
+  display: block;
+  max-height: none;
+  overflow: visible;
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
+}
+
+/* 可折叠单元格的样式 */
+.md-typeset .wiki table.ratings-table td:nth-child(3).collapsed-cell {
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+
+.md-typeset .wiki table.ratings-table td:nth-child(3).collapsed-cell:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* 展开状态的单元格 */
+.md-typeset .wiki table.ratings-table td:nth-child(3).expanded {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.md-typeset .wiki table.ratings-table td:nth-child(3).expanded:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Hatnote (little note under the page title) */
+.wiki .hatnote{ font-size:.9em; color:var(--wp-muted); font-style:italic; margin:.25rem 0 1rem; }
+
+/* Right-floating infocard (no image) */
+.wiki .infocard{
+  float:right; clear:right;
+  width: var(--card-w, 20rem);      /* tweak width per page/character if needed */
+  margin:.25rem 0 .75rem .75rem;
+  background:#fff; border:1px solid var(--wp-border);
+  padding:.5rem .6rem;
+  font-size:.95rem;
+}
+.wiki .infocard .head{
+  font-weight:700; background:var(--wp-bg);
+  padding:.3rem .4rem; margin:-.5rem -.6rem .4rem; border-bottom:1px solid var(--wp-border);
+}
+
+/* Definition list inside the card (label:value) */
+.wiki .infocard dl{ margin:0; }
+.wiki .infocard dt{
+  float:left; clear:left; width:5.5rem; color:var(--wp-muted);
+}
+.wiki .infocard dd{
+  margin-left:6.2rem; margin-bottom:.2rem;
+}
+
+/* Compact facts list in text */
+.wiki .facts{ margin:.25rem 0 .6rem; padding-left:1.2em; }
+.wiki .facts li{ margin:.1rem 0; }
+
+.wiki .two-col-list ul{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:.2rem 1.2rem;
+  padding-left:1.2rem;
+  margin:0;
+}
+.wiki .two-col-list ul > li:nth-child(odd){
+  grid-column:1;
+}
+.wiki .two-col-list ul > li:nth-child(even){
+  grid-column:2;
+}
+@media (max-width: 45rem){
+  .wiki .two-col-list ul{
+    grid-template-columns:1fr;
+  }
+  .wiki .two-col-list ul > li:nth-child(odd),
+  .wiki .two-col-list ul > li:nth-child(even){
+    grid-column:auto;
+  }
+}
+.wiki .two-col-list li{
+  margin:0;
+  break-inside:avoid;
+}
+
+/* Footnote links like [1] [2] */
+.wiki a.footnote-ref::before{ content:"["; } .wiki a.footnote-ref::after{ content:"]"; }
+
+/* If your chapters use first-line indents, Wikipedia-style often doesn't: */
+.wiki p{ text-indent:0; }
+
+/* Mobile: stack cards, full width */
+@media (max-width:60rem){
+  .wiki .infocard{ float:none; width:100%; margin:.5rem 0; }
+  .wiki .infocard dt{ width:6.5rem; }
+  .wiki .infocard dd{ margin-left:7.2rem; }
+}
+
+/* 人物网格卡（仅作用于该页容器 .chars-grid） */
+.chars-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  gap: .9rem;
+}
+.char-card{
+  border: 1px solid var(--md-default-fg-color--light, #ddd);
+  border-radius: .6rem;
+  padding: .9rem 1rem;
+  background: var(--md-default-bg-color, #fff);
+}
+.char-card h3{ margin: 0 0 .5rem; font-size: 1.05rem; }
+.char-meta{ font-size: .95rem; line-height: 1.0; }
+.char-meta strong{ display:inline-block; min-width:4.5em; }
+.char-points{ margin:.4rem 0 0; padding-left:1.1em; }
+.char-points li{ margin:.15rem 0; }
+
+/* 脚注容器整体设置 */
+.footnote {
+  font-size: 1rem;        /* 增大脚注字体 */
+  margin-top: 1.5rem;
+  padding-top: 0.5rem;
+}
+
+/* 有序列表编号样式 */
+.footnote ol {
+  list-style: none;       /* 先移除默认编号样式 */
+  counter-reset: footnote-counter;
+  padding-left: 0;        /* 去除左边缩进 */
+  margin: 0;
+}
+
+/* 单个脚注条目样式 */
+.footnote ol > li {
+  counter-increment: footnote-counter;
+  font-size: inherit;
+  line-height: 1.6;
+  margin: 0 0 0.5em 0;
+  text-indent: 0;         /* 没有缩进 */
+  padding-left: 0;
+  position: relative;
+}
+
+/* 自定义脚注编号，不留空隙 */
+.footnote ol > li::before {
+  content: counter(footnote-counter) ".";
+  font-weight: normal;
+  margin-right: 0;         /* 没有空格 */
+  position: absolute;
+  left: 0;
+}
+
+/* ===== Giscus 评论区域样式 ===== */
+.giscus-comments {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--md-default-fg-color--lightest, rgba(0,0,0,.07));
+}
+
+.giscus-comments h2 {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--md-default-fg-color, #000);
+}
+
+/* 评论提示框样式 */
+.giscus-notice {
+  background: var(--md-default-fg-color--lightest, rgba(0,0,0,.03)) !important;
+  border-left: 3px solid var(--md-default-fg-color--light, rgba(0,0,0,.3)) !important;
+  padding: 0.75rem 1rem !important;
+  margin-bottom: 1.5rem !important;
+  border-radius: 4px !important;
+  font-size: 0.9rem !important;
+  line-height: 1.6 !important;
+  color: var(--md-default-fg-color--light, rgba(0,0,0,.7)) !important;
+}
+
+.giscus-notice a {
+  color: var(--md-accent-fg-color, #448aff) !important;
+  text-decoration: underline !important;
+}
+
+.giscus-notice a:hover {
+  opacity: 0.8;
+}
+
+/* 确保评论区域在移动端也有合适的间距 */
+@media (max-width: 60rem) {
+  .giscus-comments {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+  }
+  
+  .giscus-notice {
+    font-size: 0.85rem !important;
+    padding: 0.65rem 0.9rem !important;
+  }
+}
+
